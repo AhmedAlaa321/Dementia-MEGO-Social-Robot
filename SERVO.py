@@ -59,3 +59,18 @@ class Servo:
 
     def stop(self):
         self.__servoPWM.stop()
+
+"""
+***Usage Example***
+import SERVO
+Servo_1 = SERVO.Servo()
+Servo_1.setChannel(SERVO.CHANNELS.SERVO_1.value)
+Servo_1.setAngle(90)
+Servo_1.start()
+
+if Servo_1.getAngle() == 90 :
+    Servo_1.setAngle(0)
+    Servo_1.start()
+
+Servo_1.stop()
+"""
