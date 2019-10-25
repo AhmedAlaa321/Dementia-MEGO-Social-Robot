@@ -42,13 +42,13 @@ class Microphone:
         except speechRecognition.UnknownValueError:
             print("Fail To Understand Audio!")
 
-        except speechRecognition.RequestError as serverException:
+        except speechRecognition.RequestError:
             # OFFLINE RECOGNIZER
             try:
                 return self.__speechRecognizer.recognize_sphinx(recordedAudio)
             except speechRecognition.UnknownValueError:
                 print("Fail To Understand Audio!")
-            except speechRecognition.RequestError as e:
+            except speechRecognition.RequestError:
                 print("Couldn't Recognize Audio!!")
         self.__LED_OFF()
 
