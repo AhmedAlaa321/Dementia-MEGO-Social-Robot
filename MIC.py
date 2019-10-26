@@ -30,6 +30,7 @@ class Microphone:
 
     #Enables Mic and Return Speech it disables Mic automatically
     def record(self):
+        recognizedAudio = ""
         self.__LED_ON()
         with speechRecognition.Microphone() as micSource:
            recordedAudio = self.__speechRecognizer.listen(micSource)
@@ -37,21 +38,19 @@ class Microphone:
         # ONLINE RECOGNIZER
         # Recognize Speech Using Google_Speech_Recognition
         try:
-            return self.__speechRecognizer.recognize_google(recordedAudio)
-
+            recognizedAudio = self.__speechRecognizer.recognize_google(recordedAudio)
         except speechRecognition.UnknownValueError:
             print("Fail To Understand Audio!")
-
-        except speechRecognition.RequestError as serverException:
+        except speechRecognition.RequestError:
             # OFFLINE RECOGNIZER
             try:
-                return self.__speechRecognizer.recognize_sphinx(recordedAudio)
+                recognizedAudio = self.__speechRecognizer.recognize_sphinx(recordedAudio)
             except speechRecognition.UnknownValueError:
                 print("Fail To Understand Audio!")
-            except speechRecognition.RequestError as e:
+            except speechRecognition.RequestError:
                 print("Couldn't Recognize Audio!!")
         self.__LED_OFF()
-
+        return recognizedAudio
 """
 ***Usage Example***
     from MIC import Microphone
