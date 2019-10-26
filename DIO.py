@@ -28,3 +28,4 @@ class DIO_PINS(Enum):
     SERVO_5 = defaultPins.GPIO_27.value
     SERVO_6 = defaultPins.GPIO_22.value
     SERVO_7 = defaultPins.GPIO_10.value
+    MIC_LED = defaultPins.GPIO_9.value
