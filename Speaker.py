@@ -43,3 +43,27 @@ class Speaker :
         self.__speakerEngine.say(text)
         self.__speakerEngine.runAndWait()
         self.__speakerEngine.stop()
+
+
+"""
+***Usage Example***
+    import Speaker
+
+    speakerObj = Speaker.Speaker()
+    speakerObj.setSpeechRate(150)
+
+    speakerObj.setVolume(10)
+    speakerObj.say("marchello")
+
+    speakerObj.setVolume(40)
+    speakerObj.say("what is it ?")
+
+    speakerObj.setVolume(70)
+    speakerObj.say("what do u doing")
+
+    speakerObj.setVolume(80)
+    speakerObj.say("testing a speaker")
+
+    speakerObj.setVolume(100)
+    speakerObj.say("mammia marchello that's not how u testing a speaker alberto come look to marchello")
+"""
