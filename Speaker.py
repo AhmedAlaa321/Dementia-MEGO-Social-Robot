@@ -10,10 +10,15 @@ import self
 import pyttsx3
 
 class Speaker :
-    __speakerEngine = pyttsx3.init()
+    __speakerEngine = 0
     __RATE_KEY = 'rate'
     __VOLUME_KEY = 'volume'
-    __VOICE_KEY = 'voices'
+    __VOICE_KEY = 'voice'
+    __VOICE_ARRAY_KEY = 'voices'
+
+    def __init__(self):
+        self.__speakerEngine = pyttsx3.init()
+        self.setSpeechVoice(25)
 
     def setSpeechRate(self, rate):
         self.__speakerEngine.setProperty(self.__RATE_KEY, rate)
@@ -22,17 +27,17 @@ class Speaker :
         return self.__speakerEngine.getProperty(self.__RATE_KEY)
 
     def setVolume(self, volume):
-        self.__speakerEngine.setProperty(self.__VOLUME_KEY, volume)
+        self.__speakerEngine.setProperty(self.__VOLUME_KEY, (volume/100))
 
     def getVolume(self):
-        return self.__speakerEngine.getProperty(self.__VOLUME_KEY)
+        return (self.__speakerEngine.getProperty(self.__VOLUME_KEY)*100)
 
     def setSpeechVoice(self, voiceNum):
-        voiceArray = self.getSpeechVoice()
+        voiceArray = self.__getSpeechVoice()
         self.__speakerEngine.setProperty(self.__VOICE_KEY, voiceArray[voiceNum].id)
 
-    def getSpeechVoice(self):
-        return self.__speakerEngine.getProperty(self.__VOICE_KEY)
+    def __getSpeechVoice(self):
+        return self.__speakerEngine.getProperty(self.__VOICE_ARRAY_KEY)
 
     def say(self, text):
         self.__speakerEngine.say(text)
