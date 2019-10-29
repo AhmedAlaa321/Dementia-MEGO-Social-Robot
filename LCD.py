@@ -1,55 +1,111 @@
-import turtle
+from turtle import Turtle, Screen, Shape
 from time import sleep
+import turtle
+screen = turtle.Screen()
+cursor = turtle.Turtle()
+cursor.hideturtle()
 
 def initialize():
     turtle.setup(800,484)
     turtle.bgcolor("cyan")
     turtle.Turtle().hideturtle()
 
-def drawEyes(angle):
-    turtle.hideturtle()
-    turtle.color("black","black")
-    turtle.begin_fill()
-    turtle.penup()
-    turtle.goto(120,0)
-    turtle.pendown()
-    turtle.circle(angle)
-    turtle.penup()
-    turtle.goto(-120,0)
-    turtle.pendown()
-    turtle.circle(angle)
-    turtle.penup()
-    turtle.end_fill()
-    turtle.hideturtle()
-    
-def drawMouth(angle):
-    turtle.hideturtle()
-    turtle.penup()
-    turtle.goto(-80,-80)
-    turtle.right(90)
-    turtle.pendown()
-    turtle.circle(angle,180)
-    turtle.penup()
-    turtle.hideturtle()
-
-def startEmotion():
+def __startEmotion():
     turtle.reset()
     turtle.speed(0)
 
-def endEmotion():
+def __endEmotion():
     turtle.hideturtle()
     turtle.done()
-    
-def normalEmotion():
-    while 1:
-        for degree in range(1,40,1):
-            startEmotion()
-            drawEyes(degree)
-            drawMouth(degree*2)
-        for degree in range(40,1,-1):
-            startEmotion()
-            drawEyes(degree)
-            drawMouth(degree*2)
-    endEmotion()
 
-    
+def __drawEyes():
+    turtle.hideturtle()
+    turtle.pencolor("cyan")
+    turtle.penup()
+    turtle.goto(0,0)
+    turtle.color("black","black")
+    eyes = Shape("compound")
+    turtle.begin_poly()
+    turtle.goto(-80,0)
+    turtle.pendown()
+    turtle.begin_fill()
+    turtle.circle(15)
+    turtle.end_fill()
+    turtle.end_poly()
+    lefteye = turtle.get_poly()
+    eyes.addcomponent(lefteye,"black","black")
+    turtle.begin_poly()
+    turtle.penup()
+    turtle.goto(80,0)
+    turtle.pendown()
+    turtle.begin_fill()
+    turtle.circle(15)
+    turtle.end_fill()
+    turtle.end_poly()
+    righteye = turtle.get_poly()
+    eyes.addcomponent(righteye,"black","black")
+    screen.addshape("Eyes",eyes)
+    turtle.reset()
+
+def __drawMouth():
+    turtle.speed(0)
+    turtle.penup()
+    turtle.goto(-100,-130)
+    turtle.right(30)
+    turtle.begin_fill()
+    turtle.pendown()
+    turtle.circle(200,60)
+    turtle.end_fill()
+    turtle.penup()
+    turtle.color("cyan","cyan")
+    turtle.right(60)
+    turtle.goto(-80,-130)
+    turtle.begin_fill()
+    turtle.pendown()
+    turtle.circle(160,60)
+    turtle.end_fill()
+    turtle.hideturtle()
+
+def __drawNose():
+    turtle.color("black","black")
+    turtle.begin_poly()
+    turtle.begin_fill()
+    turtle.left(60)
+    turtle.penup()
+    turtle.goto(-5,-10)
+    turtle.pendown()
+    turtle.fd(30)
+    turtle.right(90)
+    turtle.fd(10)
+    turtle.right(90)
+    turtle.fd(30)
+    turtle.right(90)
+    turtle.fd(10)
+    turtle.end_fill()
+    turtle.end_poly()
+    rectangle = turtle.get_poly()
+    turtle.penup()
+    screen.register_shape("nose",rectangle)
+
+def __blinkEyes():
+    eyes1 = turtle.Turtle("Eyes")
+    eyes1.speed(0)
+    eyes1.left(90)
+    eyes1.penup()
+    eyes1.goto(0,10)
+    eyes1.resizemode("user")
+    eyes1.shapesize(1,3)
+    while 1:
+        sleep(5)
+        eyes1.hideturtle()
+        sleep(0.1)
+        eyes1.showturtle()
+
+def normalEmotion():
+    __startEmotion()
+    __drawEyes()
+    __drawMouth()
+    __drawNose()
+    __blinkEyes()
+    __endEmotion()
+
