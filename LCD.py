@@ -17,9 +17,15 @@ def __endEmotion():
     cursor.hideturtle()
     turtle.done()
 
-def __drawEyes():
+def __startFunction():
     turtle.hideturtle()
     turtle.speed(0)
+
+def __drawEndFunction():
+    turtle.reset()
+
+def __drawEyes():
+    __startFunction()
     turtle.penup()
     turtle.goto(0, 0)
     turtle.color("black", "black")
@@ -43,10 +49,10 @@ def __drawEyes():
     righteye = turtle.get_poly()
     eyes.addcomponent(righteye, "black", "cyan")
     screen.addshape("Eyes", eyes)
-    turtle.reset()
+    __drawEndFunction()
 
 def __showEyes():
-    turtle.hideturtle()
+    __startFunction()
     __drawEyes()
     eyes = turtle.Turtle("Eyes")
     eyes.speed(0)
@@ -57,8 +63,7 @@ def __showEyes():
     eyes.shapesize(1.5, 3)
 
 def __drawMouth():
-    turtle.hideturtle()
-    turtle.speed(0)
+    __startFunction()
     turtle.color("black", "black")
     turtle.begin_poly()
     turtle.begin_fill()
@@ -76,10 +81,10 @@ def __drawMouth():
     turtle.end_poly()
     upperlips = turtle.get_poly()
     screen.addshape("UpperLips", upperlips)
-    turtle.reset()
+    __drawEndFunction()
 
 def __showMouth():
-    turtle.hideturtle()
+    __startFunction()
     __drawMouth()
     lowerlips = turtle.Turtle("LowerLips")
     lowerlips.speed(0)
@@ -93,8 +98,7 @@ def __showMouth():
     upperlips.goto(-179, 45)
 
 def __drawNose():
-    turtle.hideturtle()
-    turtle.speed(0)
+    __startFunction()
     turtle.color("black", "black")
     turtle.begin_poly()
     turtle.begin_fill()
@@ -110,10 +114,10 @@ def __drawNose():
     turtle.end_poly()
     nose = turtle.get_poly()
     screen.addshape("Nose", nose)
-    turtle.reset()
+    __drawEndFunction()
 
 def __showNose():
-    turtle.hideturtle()
+    __startFunction()
     __drawNose()
     nosedraw = turtle.Turtle("Nose")
     nosedraw.speed(0)
@@ -121,7 +125,7 @@ def __showNose():
     nosedraw.bk(10)
 
 def __blinkEyes():
-    cursor.hideturtle()
+    __startFunction()
     __drawEyes()
     eyes = turtle.Turtle("Eyes")
     eyes.speed(0)
@@ -137,7 +141,7 @@ def __blinkEyes():
         eyes.showturtle()
 
 def __talk():
-    cursor.hideturtle()
+    __startFunction()
     __drawMouth()
     lowerlips = turtle.Turtle("LowerLips")
     lowerlips.speed(0)
