@@ -56,16 +56,45 @@ class Servo:
     # Passes Angle to PWM in DutyCycle Equation then Start Square Signal by Turning Object PIN (ON & OFF)
     def start(self):
         self.__servoPWM.start(0)
-        dutyCycle = self.getAngle()/18+2
+        dutyCycle = float(self.getAngle()/18)+2
         GPIO.output(self.getChannel(), True)
         self.__servoPWM.ChangeDutyCycle(dutyCycle)
-        sleep(1)
-        GPIO.output(self.getChannel(), False)
-        self.__servoPWM.ChangeDutyCycle(0)
+        sleep(0.5)
 
     # Stops Generating PWM Signals
     def stop(self):
+        GPIO.output(self.getChannel(), False)
+        self.__servoPWM.ChangeDutyCycle(0)
         self.__servoPWM.stop()
+
+    #Start with specfic delay according to number of frames
+    def __startWithFrames(self, frames):
+        self.__servoPWM.start(0)
+        time = float(5/frames)
+        dutyCycle = float(self.getAngle()/18)+2
+        GPIO.output(self.getChannel(), True)
+        self.__servoPWM.ChangeDutyCycle(dutyCycle)
+        sleep(time)
+
+
+    def rotateWithFrames(self, selectedAngle, rotationFrames):
+        if(rotationFrames != 0):
+            #Step of accerlation
+            speed = float((selectedAngle-self.getAngle())/(rotationFrames))
+            if(speed > 0):
+                while (self.getAngle() < selectedAngle):
+                    floatAngle = float(self.getAngle() + speed)
+                    self.setAngle(floatAngle)
+                    self.__startWithFrames(rotationFrames)
+            #if Reverse rotation
+            elif(speed < 0):
+                 while (self.getAngle() > selectedAngle):
+                    floatAngle = float(self.getAngle() + speed)
+                    self.setAngle(floatAngle)
+                    self.__startWithFrames(rotationFrames)
+            self.stop()
+        else:
+            self.setAngle(selectedAngle)
 
 """
 ***Usage Example***
