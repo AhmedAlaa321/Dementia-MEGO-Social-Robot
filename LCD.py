@@ -200,15 +200,19 @@ def __showEyes():
 
 def __drawMouth():
     __startFunction()
+
+    #draw the lower lips of the mouth
     turtle.color("black", "black")
     turtle.begin_poly()
     turtle.begin_fill()
     turtle.pensize(10)
-    turtle.circle(200, 60)
+    turtle.circle(300, 60)
     turtle.end_fill()
     turtle.end_poly()
     lowerlips = turtle.get_poly()
     screen.addshape("LowerLips", lowerlips)
+
+    #draw the upper lips of the mouth
     turtle.color("cyan", "cyan")
     turtle.pensize(10)
     turtle.begin_poly()
@@ -217,6 +221,7 @@ def __drawMouth():
     turtle.end_fill()
     turtle.end_poly()
     upperlips = turtle.get_poly()
+
     screen.addshape("UpperLips", upperlips)
     __drawEndFunction()
 
@@ -227,13 +232,15 @@ def __showMouth():
     lowerlips = turtle.Turtle("LowerLips")
     lowerlips.speed(0)
     lowerlips.penup()
-    lowerlips.goto(-100, -130)
+    lowerlips.goto(-145, -130)
     lowerlips.left(60)
     upperlips = turtle.Turtle("UpperLips")
     upperlips.color("cyan")
     upperlips.speed(0)
     upperlips.penup()
-    upperlips.goto(-179, 45)
+    upperlips.goto(-450, 130)
+    upperlips.resizemode("user")
+    upperlips.shapesize(1, 2)
 
 def __drawNose():
     __startFunction()
@@ -256,7 +263,9 @@ def __showNose():
     nosedraw = turtle.Turtle("Nose")
     nosedraw.speed(0)
     nosedraw.penup()
-    nosedraw.goto(-10, 0)
+    nosedraw.goto(-15, -10)
+    nosedraw.resizemode("user")
+    nosedraw.shapesize(3, 1)
 
 def __drawEyeBrows():
     __startFunction()
@@ -266,7 +275,7 @@ def __drawEyeBrows():
     turtle.begin_poly()
     turtle.penup()
     turtle.goto(-80, 0)
-    turtle.left(10)
+    turtle.left(5)
     turtle.pendown()
     turtle.fd(15)
     turtle.left(90)
@@ -283,11 +292,11 @@ def __drawEyeBrows():
 
     #draw Right Eye Borw
     turtle.penup()
-    turtle.right(10)
+    turtle.right(5)
     turtle.goto(80, 0)
     turtle.begin_poly()
     turtle.left(180)
-    turtle.right(10)
+    turtle.right(5)
     turtle.fd(15)
     turtle.right(90)
     turtle.fd(5)
@@ -310,9 +319,9 @@ def __showEyeBrows():
     browsdraw.speed(0)
     browsdraw.penup()
     browsdraw.left(90)
-    browsdraw.goto(-5, 130)
+    browsdraw.goto(-5, 170)
     browsdraw.resizemode("user")
-    browsdraw.shapesize(2, 3)
+    browsdraw.shapesize(3, 4)
 
 def __blinkEyes():
     __startFunction()
@@ -324,7 +333,7 @@ def __blinkEyes():
     openeyesm.left(90)
     openeyesm.goto(-5, 20)
     openeyesm.resizemode("user")
-    openeyesm.shapesize(2, 3)
+    openeyesm.shapesize(3, 4)
 
     #show opened eyes with left cornea
     openeyesl = turtle.Turtle("OpenedEyesL")
@@ -333,7 +342,7 @@ def __blinkEyes():
     openeyesl.left(90)
     openeyesl.goto(-5, 20)
     openeyesl.resizemode("user")
-    openeyesl.shapesize(2, 3)
+    openeyesl.shapesize(3, 4)
 
     #show opened eyes with right cornea
     openeyesr = turtle.Turtle("OpenedEyesR")
@@ -342,7 +351,7 @@ def __blinkEyes():
     openeyesr.left(90)
     openeyesr.goto(-5, 20)
     openeyesr.resizemode("user")
-    openeyesr.shapesize(2, 3)
+    openeyesr.shapesize(3, 4)
 
     #show closed eyes
     closeeyes = turtle.Turtle("ClosedEyes")
@@ -351,7 +360,7 @@ def __blinkEyes():
     closeeyes.left(90)
     closeeyes.goto(-33, 57)
     closeeyes.resizemode("user")
-    closeeyes.shapesize(2, 3)
+    closeeyes.shapesize(3, 4)
 
     while 1:
 
@@ -422,7 +431,7 @@ def __talkBlink():
     lowerlips = turtle.Turtle("LowerLips")
     lowerlips.speed(0)
     lowerlips.penup()
-    lowerlips.goto(-100, -130)
+    lowerlips.goto(-145, -130)
     lowerlips.left(60)
 
     #draw upper lips
@@ -430,7 +439,9 @@ def __talkBlink():
     upperlips.color("cyan")
     upperlips.speed(0)
     upperlips.penup()
-    upperlips.goto(-179, 45)
+    upperlips.goto(-450, 130)
+    upperlips.resizemode("user")
+    upperlips.shapesize(1, 2)
 
     # show opened eyes with mid cornea
     openeyesm = turtle.Turtle("OpenedEyesM")
@@ -439,7 +450,7 @@ def __talkBlink():
     openeyesm.left(90)
     openeyesm.goto(-5, 20)
     openeyesm.resizemode("user")
-    openeyesm.shapesize(2, 3)
+    openeyesm.shapesize(3, 4)
 
     # show opened eyes with left cornea
     openeyesl = turtle.Turtle("OpenedEyesL")
@@ -448,7 +459,7 @@ def __talkBlink():
     openeyesl.left(90)
     openeyesl.goto(-5, 20)
     openeyesl.resizemode("user")
-    openeyesl.shapesize(2, 3)
+    openeyesl.shapesize(3, 4)
 
     # show opened eyes with right cornea
     openeyesr = turtle.Turtle("OpenedEyesR")
@@ -457,7 +468,7 @@ def __talkBlink():
     openeyesr.left(90)
     openeyesr.goto(-5, 20)
     openeyesr.resizemode("user")
-    openeyesr.shapesize(2, 3)
+    openeyesr.shapesize(3, 4)
 
     # show closed eyes
     closeeyes = turtle.Turtle("ClosedEyes")
@@ -466,7 +477,7 @@ def __talkBlink():
     closeeyes.left(90)
     closeeyes.goto(-33, 57)
     closeeyes.resizemode("user")
-    closeeyes.shapesize(2, 3)
+    closeeyes.shapesize(3, 4)
 
     while 1:
 
