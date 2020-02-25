@@ -24,8 +24,6 @@ class Camera:
 		self.fps = FPS().start()
 
 	def recognizeFaces(self):
-		# loop over frames from the video file stream
-		#while True:
 		# grab the frame from the threaded video stream and resize it
 		# to 500px (to speedup processing)
 		frame = self.vs.read()
@@ -80,8 +78,6 @@ class Camera:
 
 			# update the list of names
 			names.append(name)
-			#return name
-			#sleep(10)
 
 		# loop over the recognized faces
 		for ((top, right, bottom, left), name) in zip(boxes, names):
@@ -96,23 +92,19 @@ class Camera:
 		cv2.imshow("Frame", frame)
 		key = cv2.waitKey(1) & 0xFF
 
-		# if the `q` key was pressed, break from the loop
-		#if key == ord("q"):
-			#break
-
 		# update the FPS counter
 		self.fps.update()
+		return names
 
+	def stopStreaming(self):
+			# stop the timer and display FPS information
+			self.fps.stop()
+			print("[INFO] elasped time: {:.2f}".format(self.fps.elapsed()))
+			print("[INFO] approx. FPS: {:.2f}".format(self.fps.fps()))
 
-
-		# stop the timer and display FPS information
-		#fps.stop()
-		#print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-		#print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-
-		# do a bit of cleanup
-		#cv2.destroyAllWindows()
-		#vs.stop()
+			# do a bit of cleanup
+			cv2.destroyAllWindows()
+			self.vs.stop()
 
 
 #Usage Example
