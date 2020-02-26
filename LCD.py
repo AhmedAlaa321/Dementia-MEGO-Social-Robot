@@ -1,23 +1,32 @@
 from turtle import Turtle, Screen, Shape
 from time import sleep
 import turtle
-import multiprocessing
+import multiprocessing as mp
+
 screen = turtle.Screen()
 cursor = turtle.Turtle()
+queue = mp.JoinableQueue()
+count1 = 0
+count2 = 0
+i1 = 0
+i2 = 0
 
 def initialize():
     turtle.setup(800, 484)
+    screen.clear()
     turtle.bgcolor("cyan")
-    cursor.hideturtle()
+    #cursor.hideturtle()
+
 
 def __startEmotion():
-    turtle.reset()
+    screen.reset()
+    cursor.hideturtle()
     turtle.speed(0)
     screen.tracer(0)
 
 def __endEmotion():
-    cursor.hideturtle()
-    turtle.done()
+    screen.clear()
+    turtle.bgcolor("cyan")
 
 def __startFunction():
     turtle.hideturtle()
@@ -189,14 +198,14 @@ def __drawEyes():
 def __showEyes():
     __startFunction()
     __drawEyes()
-    screen.update()
     eyes = turtle.Turtle("OpenedEyesM")
     eyes.speed(0)
     eyes.penup()
     eyes.left(90)
     eyes.goto(-5, 20)
     eyes.resizemode("user")
-    eyes.shapesize(2, 3)
+    eyes.shapesize(3, 4)
+    screen.update()
 
 def __drawMouth():
     __startFunction()
@@ -228,7 +237,6 @@ def __drawMouth():
 def __showMouth():
     __startFunction()
     __drawMouth()
-    screen.update()
     lowerlips = turtle.Turtle("LowerLips")
     lowerlips.speed(0)
     lowerlips.penup()
@@ -241,6 +249,7 @@ def __showMouth():
     upperlips.goto(-450, 130)
     upperlips.resizemode("user")
     upperlips.shapesize(1, 2)
+    screen.update()
 
 def __drawNose():
     __startFunction()
@@ -259,13 +268,13 @@ def __drawNose():
 def __showNose():
     __startFunction()
     __drawNose()
-    screen.update()
     nosedraw = turtle.Turtle("Nose")
     nosedraw.speed(0)
     nosedraw.penup()
     nosedraw.goto(-15, -10)
     nosedraw.resizemode("user")
     nosedraw.shapesize(3, 1)
+    screen.update()
 
 def __drawEyeBrows():
     __startFunction()
@@ -322,8 +331,9 @@ def __showEyeBrows():
     browsdraw.goto(-5, 170)
     browsdraw.resizemode("user")
     browsdraw.shapesize(3, 4)
+    screen.update()
 
-def __blinkEyes():
+def __blinkEyes(breakN):
     __startFunction()
     __drawEyes()
     #show opened eyes with mid cornea
@@ -362,67 +372,94 @@ def __blinkEyes():
     closeeyes.resizemode("user")
     closeeyes.shapesize(3, 4)
 
-    while 1:
+   # while 1:
 
-        #hide all the shapes first to avoid overlap
-        openeyesr.hideturtle()
-        openeyesl.hideturtle()
-        openeyesm.hideturtle()
+    #hide all the shapes first to avoid overlap
+    openeyesr.hideturtle()
+    openeyesl.hideturtle()
+    openeyesm.hideturtle()
+    screen.update()
+
+    global i1
+    global count1
+    x1 = i1+1
+    y1 = i1+2
+    z1 = i1+3
+    n1 = i1+4
+    if count1 == i1:
+        # open eyes 4 sec with rightcornea then blink
+        closeeyes.hideturtle()
+        openeyesr.showturtle()
         screen.update()
+        for i in range(0, 40, 1):
+            if (breakN == 1):
+                break
+            sleep(0.1)
+        openeyesr.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count1 = count1+1
 
-        for count in range(0, 8, 1):
-            if count == 4:
-                # open eyes 4 sec with rightcornea then blink
-                closeeyes.hideturtle()
-                openeyesr.showturtle()
-                screen.update()
-                sleep(4)
-                openeyesr.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            elif count == 5:
-                # open eyes 4 sec with rightcornea then blink
-                closeeyes.hideturtle()
-                openeyesr.showturtle()
-                screen.update()
-                sleep(4)
-                openeyesr.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            elif count == 6:
-                # open eyes 4 sec with leftcornea then blink
-                closeeyes.hideturtle()
-                openeyesl.showturtle()
-                screen.update()
-                sleep(4)
-                openeyesl.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            elif count == 7:
-                # open eyes 4 sec with leftcornea then blink
-                closeeyes.hideturtle()
-                openeyesl.showturtle()
-                screen.update()
-                sleep(4)
-                openeyesl.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            else:
-                #open eyes 4 sec with mid cornea then blink
-                closeeyes.hideturtle()
-                openeyesm.showturtle()
-                screen.update()
-                sleep(4)
-                openeyesm.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
+    elif count1 == x1:
+        # open eyes 4 sec with rightcornea then blink
+        closeeyes.hideturtle()
+        openeyesr.showturtle()
+        screen.update()
+        for i in range(0, 40, 1):
+            if (breakN == 1):
+                break
+            sleep(0.1)
+        openeyesr.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count1 = count1+1
 
-def __talkBlink():
+    elif count1 == y1:
+        # open eyes 4 sec with leftcornea then blink
+        closeeyes.hideturtle()
+        openeyesl.showturtle()
+        screen.update()
+        for i in range(0, 40, 1):
+            if (breakN == 1):
+                break
+            sleep(0.1)
+        openeyesl.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count1 = count1+1
+
+    elif count1 == z1:
+        # open eyes 4 sec with leftcornea then blink
+        closeeyes.hideturtle()
+        openeyesl.showturtle()
+        screen.update()
+        for i in range(0, 40, 1):
+            if (breakN == 1):
+                break
+            sleep(0.1)
+        openeyesl.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count1 = count1+1
+
+    elif count1 == n1:
+        #open eyes 4 sec with mid cornea then blink
+        closeeyes.hideturtle()
+        openeyesm.showturtle()
+        screen.update()
+        for i in range(0, 40, 1):
+            if (breakN == 1):
+               break
+            sleep(0.1)
+        openeyesm.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count1 = count1-4
+    i1 = i1+1
+    count1 = count1+1
+
+
+def __talkBlink(breakT):
     __startFunction()
     __drawMouth()
     __drawEyes()
@@ -479,122 +516,161 @@ def __talkBlink():
     closeeyes.resizemode("user")
     closeeyes.shapesize(3, 4)
 
-    while 1:
+    #while 1:
 
-        # hide all the shapes first to avoid overlap
-        openeyesr.hideturtle()
-        openeyesl.hideturtle()
-        openeyesm.hideturtle()
-        upperlips.hideturtle()
-        lowerlips.hideturtle()
+    # hide all the shapes first to avoid overlap
+    openeyesr.hideturtle()
+    openeyesl.hideturtle()
+    openeyesm.hideturtle()
+    upperlips.hideturtle()
+    lowerlips.hideturtle()
+    screen.update()
+
+    global i2
+    global count2
+    x2 = i2 + 1
+    y2 = i2 + 2
+    z2 = i2 + 3
+    n2 = i2 + 4
+
+    if count2 == i2:
+        # open eyes 4 sec with rightcornea then blink
+        closeeyes.hideturtle()
+        openeyesr.showturtle()
         screen.update()
+        for i in range(0, 20, 1):
+            if(breakT == 1):
+                break
+            upperlips.showturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+            upperlips.hideturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+        openeyesr.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count2 = count2+1
 
-        for count in range(0, 8, 1):
-            if count == 4:
-                # open eyes 4 sec with rightcornea then blink
-                closeeyes.hideturtle()
-                openeyesr.showturtle()
-                screen.update()
-                for i in range(0, 20, 1):
-                    upperlips.showturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                    upperlips.hideturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                openeyesr.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            elif count == 5:
-                # open eyes 4 sec with rightcornea then blink
-                closeeyes.hideturtle()
-                openeyesr.showturtle()
-                screen.update()
-                for i in range(0, 20, 1):
-                    upperlips.showturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                    upperlips.hideturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                openeyesr.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            elif count == 6:
-                # open eyes 4 sec with leftcornea then blink
-                closeeyes.hideturtle()
-                openeyesl.showturtle()
-                screen.update()
-                for i in range(0, 20, 1):
-                    upperlips.showturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                    upperlips.hideturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                openeyesl.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            elif count == 7:
-                # open eyes 4 sec with leftcornea then blink
-                closeeyes.hideturtle()
-                openeyesl.showturtle()
-                screen.update()
-                for i in range(0, 20, 1):
-                    upperlips.showturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                    upperlips.hideturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                openeyesl.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
-            else:
-                # open eyes 4 sec with mid cornea then blink
-                closeeyes.hideturtle()
-                openeyesm.showturtle()
-                screen.update()
-                for i in range(0, 20, 1):
-                    upperlips.showturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                    upperlips.hideturtle()
-                    lowerlips.showturtle()
-                    screen.update()
-                    sleep(0.1)
-                openeyesm.hideturtle()
-                closeeyes.showturtle()
-                screen.update()
-                sleep(0.1)
+    elif count2 == x2:
+        # open eyes 4 sec with rightcornea then blink
+        closeeyes.hideturtle()
+        openeyesr.showturtle()
+        screen.update()
+        for i in range(0, 20, 1):
+            if (breakT == 1):
+                break
+            upperlips.showturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+            upperlips.hideturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+        openeyesr.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count2 = count2 + 1
+
+    elif count2 == y2:
+        # open eyes 4 sec with leftcornea then blink
+        closeeyes.hideturtle()
+        openeyesl.showturtle()
+        screen.update()
+        for i in range(0, 20, 1):
+            if (breakT == 1):
+                break
+            upperlips.showturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+            upperlips.hideturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+        openeyesl.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count2 = count2 + 1
+
+    elif count2 == z2:
+        # open eyes 4 sec with leftcornea then blink
+        closeeyes.hideturtle()
+        openeyesl.showturtle()
+        screen.update()
+        for i in range(0, 20, 1):
+            if (breakT == 1):
+                break
+            upperlips.showturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+            upperlips.hideturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+        openeyesl.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count2 = count2 + 1
+
+    elif count2 == n2:
+        # open eyes 4 sec with mid cornea then blink
+        closeeyes.hideturtle()
+        openeyesm.showturtle()
+        screen.update()
+        for i in range(0, 20, 1):
+            if (breakT == 1):
+                break
+            upperlips.showturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+            upperlips.hideturtle()
+            lowerlips.showturtle()
+            screen.update()
+            sleep(0.1)
+        openeyesm.hideturtle()
+        closeeyes.showturtle()
+        screen.update()
+        count2 = count2 - 4
+    count2 = count2+1
+    i2 = i2+1
 
 
-def normalEmotion():
+def normalEmotion(breakNormal):
     __startEmotion()
     __showMouth()
     __showNose()
     __showEyeBrows()
-    __blinkEyes()
+    __blinkEyes(breakNormal)
     __endEmotion()
 
-def normalTalkingEmotion():
+def normalTalkingEmotion(breakTalk):
     __startEmotion()
     __showEyeBrows()
     __showNose()
-    __talkBlink()
+    __talkBlink(breakTalk)
     __endEmotion()
 
+
+def testLcdEmotion1():
+    __startEmotion()
+    __showMouth()
+    __showNose()
+    __showEyeBrows()
+    __showEyes()
+    sleep(5)
+    __endEmotion()
+
+def testLcdEmotion2():
+    __startEmotion()
+    __showMouth()
+    __showNose()
+    __showEyes()
+    sleep(5)
+    __endEmotion()
 
