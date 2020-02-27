@@ -37,6 +37,22 @@ class Servo:
          Servo_1.stop()
          GPIO.cleanup()
 
+    def neckServoMoveRight():
+         GPIO.setmode(GPIO.BOARD)
+         Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_3.value)
+         Servo_1.setAngle(100)
+         Servo_1.start()
+         Servo_1.stop()
+         GPIO.cleanup()
+
+    def neckServoMoveLeft():
+         GPIO.setmode(GPIO.BOARD)
+         Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_3.value)
+         Servo_1.setAngle(189)
+         Servo_1.start()
+         Servo_1.stop()
+         GPIO.cleanup()
+
     def RightShoulderServoFirstDegreeMove():
         speakerObj.setVolume(100)
         speakerObj.say("Front UP")
@@ -155,11 +171,36 @@ class SpeakerTest():
 
 class CameraTest:
     def faceRecognition():
+        count = 0
+        counter1 = 15
+        counter2 = 30
+
         while 1:
-            names = cam.recognizeFaces()
-            for nameIndex in range(len(names)):
-                name = names[nameIndex]
-                if (name != "Unknown"):
+            names, foundFace = cam.recognizeFaces()
+            print(foundFace)
+
+            if (foundFace == 0):
+                if(count < counter1):
+                    print("no move")
+                elif(count == counter1):
+                    print("move Right")
+                    Servo.neckServoMoveRight()
+                    sleep(2)
+                elif(count < counter2):
+                    print("no Move")
+                elif(count == counter2):
+                    print("move Left")
+                    Servo.neckServoMoveLeft()
+                    sleep(2)
+                    count = 0
+
+                count = count + 1
+
+            elif (foundFace == 1):
+                count = 0
+                for nameIndex in range(len(names)):
+                    name = names[nameIndex]
+                    print("Found a face")
                     print(name)
                     speakerObj.say("hello")
                     speakerObj.say(name)
