@@ -25,13 +25,13 @@ speakerObj.say("please choose any thing you want to test")
 class Servo:
     def neckServoMove():
          speakerObj.setVolume(100)
-         speakerObj.say("Rotating Left")
+         speakerObj.say("Rotating Right")
          GPIO.setmode(GPIO.BOARD)
          Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_3.value)
          Servo_1.setAngle(100)
          Servo_1.start()
          speakerObj.setVolume(100)
-         speakerObj.say("Rotating Right")
+         speakerObj.say("Rotating Left")
          Servo_1.setAngle(189)
          Servo_1.start()
          Servo_1.stop()
@@ -42,11 +42,11 @@ class Servo:
         speakerObj.say("Front UP")
         GPIO.setmode(GPIO.BOARD)
         Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_2.value)
-        Servo_1.setAngle(100)
+        Servo_1.setAngle(0)
         Servo_1.start()
         speakerObj.setVolume(100)
         speakerObj.say("Back Down")
-        Servo_1.setAngle(189)
+        Servo_1.setAngle(90)
         Servo_1.start()
         Servo_1.stop()
         GPIO.cleanup()
@@ -56,11 +56,11 @@ class Servo:
         speakerObj.say("Right UP")
         GPIO.setmode(GPIO.BOARD)
         Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_4.value)
-        Servo_1.setAngle(100)
+        Servo_1.setAngle(0)
         Servo_1.start()
         speakerObj.setVolume(100)
         speakerObj.say("left Down")
-        Servo_1.setAngle(189)
+        Servo_1.setAngle(90)
         Servo_1.start()
         Servo_1.stop()
         GPIO.cleanup()
@@ -70,11 +70,11 @@ class Servo:
         speakerObj.say("Front UP")
         GPIO.setmode(GPIO.BOARD)
         Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_6.value)
-        Servo_1.setAngle(100)
+        Servo_1.setAngle(0)
         Servo_1.start()
         speakerObj.setVolume(100)
         speakerObj.say("Back Down")
-        Servo_1.setAngle(189)
+        Servo_1.setAngle(90)
         Servo_1.start()
         Servo_1.stop()
         GPIO.cleanup()
@@ -84,14 +84,43 @@ class Servo:
         speakerObj.say("Left UP")
         GPIO.setmode(GPIO.BOARD)
         Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_5.value)
-        Servo_1.setAngle(100)
+        Servo_1.setAngle(0)
         Servo_1.start()
         speakerObj.setVolume(100)
         speakerObj.say("right Down")
-        Servo_1.setAngle(189)
+        Servo_1.setAngle(90)
         Servo_1.start()
         Servo_1.stop()
         GPIO.cleanup()
+
+    def LeftElbowMove():
+        speakerObj.setVolume(100)
+        speakerObj.say("moving UP")
+        GPIO.setmode(GPIO.BOARD)
+        Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_7.value)
+        Servo_1.setAngle(0)
+        Servo_1.start()
+        speakerObj.setVolume(100)
+        speakerObj.say("moving Down")
+        Servo_1.setAngle(90)
+        Servo_1.start()
+        Servo_1.stop()
+        GPIO.cleanup()
+
+    def rightElbowMove():
+        speakerObj.setVolume(100)
+        speakerObj.say("moving UP")
+        GPIO.setmode(GPIO.BOARD)
+        Servo_1 = SERVO.Servo(SERVO.CHANNELS.SERVO_1.value)
+        Servo_1.setAngle(0)
+        Servo_1.start()
+        speakerObj.setVolume(100)
+        speakerObj.say("moving Down")
+        Servo_1.setAngle(90)
+        Servo_1.start()
+        Servo_1.stop()
+        GPIO.cleanup()
+
 
 class Mic:
     def speechRecognition():
@@ -151,6 +180,12 @@ def testServo():
 
     elif (Test1 == "LeftShoulderServoSecondDegree"):
         Servo.LeftShoulderServoSecondDegreeMove()
+
+    elif (Test1 == "LeftElbow"):
+        Servo.LeftElbowMove()
+
+    elif (Test1 == "RightElbow"):
+        Servo.rightElbowMove()
 
 def testMic():
     Test2 = micList.get()
